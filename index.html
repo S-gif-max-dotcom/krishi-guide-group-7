@@ -1,36 +1,196 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>এগ্রি ১৭তম আবর্তন</title>
-<style>
-  body {
-    font-family: 'SolaimanLipi', Arial, sans-serif;
-    line-height: 1.6;
-    background: #f9f9f9;
-    color: #333;
-    margin: 20px;
-  }
-  h1, h2, h3 {
-    color: #2c3e50;
-  }
-  section {
-    background: #fff;
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  ul {
-    margin-left: 20px;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>এগ্রি ১৭তম আবর্তন</title>
+  <style>
+    body {
+      font-family: 'SolaimanLipi', Arial, sans-serif;
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      padding-left: 220px;
+    }
+
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+
+    section {
+      background: #fff;
+      margin: 30px 20px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Sidebar Style */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #2c3e50;
+      padding: 20px 10px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .sidebar h3 {
+      color: #fff;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #1abc9c;
+      color: #000;
+    }
+
+    /* Weather Widget Style */
+    .weather-widget {
+      font-family: Arial, sans-serif;
+      max-width: 300px;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, #72EDF2 0%, #5151E5 100%);
+      color: white;
+      margin: 20px auto;
+    }
+
+    .weather-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .weather-city {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .weather-temp {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+    .weather-desc {
+      margin: 5px 0;
+    }
+
+    .weather-details {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    .weather-detail {
+      text-align: center;
+    }
+
+    .weather-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .refresh-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    iframe {
+      max-width: 100%;
+      margin: 10px 0;
+      border-radius: 10px;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    li img {
+      max-width: 100px;
+      display: block;
+      margin: 5px 0;
+    }
+
+    h2 {
+      border-left: 5px solid #1abc9c;
+      padding-left: 10px;
+    }
+    .weather-widget {
+  font-family: 'SolaimanLipi', sans-serif;
+  background: linear-gradient(135deg, #dbe9ff, #f0faff);
+  border: 2px solid #92caff;
+  border-radius: 10px;
+  padding: 15px 20px;
+  max-width: 350px;
+  color: #333;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin: 20px;
+}
+.weather-widget h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+.weather-widget div {
+  margin: 6px 0;
+  font-size: 16px;
+}
+  </style>
 </head>
 <body>
 
-<h1>এগ্রি ১৭তম আবর্তন</h1>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+  <h3>ফসলসমূহ</h3>
+  <a href="#cucumber">🥒 শসা</a>
+  <a href="#pointed-gourd">🥬 শিম</a>
+  <a href="#snake-gourd">🍃 চিচিঙ্গা</a>
+  <a href="#ridge-gourd">🌱 ঢেঁড়স</a>
+  <a href="#cauliflower">🥦 ফুলকপি</a>
+  <a href="#cumin">🧂 জিরা</a>
+  <a href="#cardamom">🌿 এলাচ</a>
+  <a href="#cinnamon">🌳 দারুচিনি</a>
+</div>
 
+<!-- শিরোনাম -->
+<h1 style="text-align:center; padding-top: 20px;">এগ্রি ১৭তম আবর্তন</h1>
+<!-- 🔴 এখানে Weather Widget বসাও -->
+<div class="weather-widget">
+  <h3>📍 আজকের আবহাওয়া</h3>
+  <div><strong id="weather-location">অবস্থান:</strong> <span>লোড হচ্ছে...</span></div>
+  <div><strong>তাপমাত্রা:</strong> <span id="weather-temp">--°C</span></div>
+  <div><strong>অনুভূত তাপমাত্রা:</strong> <span id="weather-feels">--°C</span></div>
+  <div><strong>আবহাওয়া:</strong> <span id="weather-condition">--</span> <img id="weather-icon" src="" alt="" style="height: 30px;"></div>
+  <div><strong>আর্দ্রতা:</strong> <span id="weather-humidity">--%</span></div>
+  <div><strong>বাতাস:</strong> <span id="weather-wind">-- কিমি/ঘণ্টা</span></div>
+  <div><strong>বৃষ্টিপাত:</strong> <span id="weather-rain">-- mm</span></div>
+  <div><strong>UV ইনডেক্স:</strong> <span id="weather-uv">--</span></div>
+  <div><strong>আপডেট সময়:</strong> <span id="weather-time">--</span></div>
+</div>
 <!-- Cucumber -->
 <section id="cucumber">
   <h2 style="color: orange;">শসা (Cucumber)</h2>
@@ -66,7 +226,7 @@
     </ul>
   
   <h3>🧪 সার ব্যবস্থাপনা (হেক্টরপ্রতি)</h3>
-  <ul> <iframe src="https://youtube.com/shorts/BZc6kVK3ajk?si=aU4WvND3tSb306RC" frameborder="0">
+  <ul> <iframe width="560" height="315" src="https://www.youtube.com/embed/hmKPYP5OoKQ?si=6TOw71Ub5NocheNC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </iframe>
     <li>গোবর: ১০-১৫ টন</li>
     <li>ইউরিয়া: ২৫০ কেজি</li>
@@ -77,7 +237,7 @@
     </ul>
   
   <h3>💧 সেচ</h3>
-  <ul> <iframe src="https://youtu.be/yAu2pVysPjg?si=SzDh5VmwCmMZG2R_" frameborder="0"></iframe>
+  <ul> <iframe width="560" height="315" src="https://www.youtube.com/embed/yAu2pVysPjg?si=ICsmu8yijEv26qQi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <li>৭-১০ দিন পরপর হালকা সেচ দিন।</li>
     <li>ফুল ও ফল আসার সময় বিশেষভাবে সেচ জরুরি।</li>
     </ul>
@@ -153,7 +313,6 @@
   <h3>সংগ্রহ</h3>
   <p>বপনের ৬০-৭০ দিনের মধ্যে ফল সংগ্রহ করা যায়। ফল সতেজ থাকলে বাজারজাত করা হয়।</p>
 </section>
-
 <!-- Snake Gourd -->
 <section id="snake-gourd">
   <h2>চিচিঙ্গা (Snake Gourd)</h2>
@@ -319,7 +478,6 @@
   <h3>সংগ্রহ</h3>
   <p>বপনের ৯০-১০০ দিনের মধ্যে ফল সংগ্রহ করা হয়।</p>
 </section>
-
 <!-- Cardamom -->
 <section id="cardamom">
   <h2  style="color: chartreuse;">এলাচ (Cardamom)</h2>
@@ -398,142 +556,48 @@
   <h3>সংগ্রহ</h3>
   <p>বপনের ১২-১৪ মাস পরে কোরা ছাল সংগ্রহ করা হয়।</p>
 </section>
-<!-- ওয়েদার উইজেট যোগ করুন এখানে -->
-<div class="weather-widget">
-    <div class="weather-header">
-        <div class="weather-city" id="weather-city">লোড হচ্ছে...</div>
-        <button class="refresh-btn" onclick="fetchWeather()">রিফ্রেশ</button>
-    </div>
-    <div class="weather-main">
-        <div class="weather-temp" id="weather-temp">--°C</div>
-        <div class="weather-desc" id="weather-desc">--</div>
-        <img class="weather-icon" id="weather-icon" src="" alt="Weather icon">
-    </div>
-    <div class="weather-details">
-        <div class="weather-detail">
-            <div>আর্দ্রতা</div>
-            <div id="weather-humidity">--%</div>
-        </div>
-        <div class="weather-detail">
-            <div>বাতাস</div>
-            <div id="weather-wind">-- km/h</div>
-        </div>
-        <div class="weather-detail">
-            <div>চাপ</div>
-            <div id="weather-pressure">-- hPa</div>
-        </div>
-    </div>
-</div>
-
-<style>
-    .weather-widget {
-        font-family: Arial, sans-serif;
-        max-width: 300px;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        background: linear-gradient(135deg, #72EDF2 0%, #5151E5 100%);
-        color: white;
-        margin: 20px auto;
-    }
-    .weather-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-    .weather-city {
-        font-size: 1.5em;
-        font-weight: bold;
-    }
-    .weather-temp {
-        font-size: 2.5em;
-        font-weight: bold;
-    }
-    .weather-desc {
-        margin: 5px 0;
-    }
-    .weather-details {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 15px;
-    }
-    .weather-detail {
-        text-align: center;
-    }
-    .weather-icon {
-        width: 60px;
-        height: 60px;
-    }
-    .refresh-btn {
-        background: rgba(255,255,255,0.2);
-        border: none;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-</style>
-
 <script>
-    // OpenWeatherMap API কী - এখানে আপনার নিজের API কী ব্যবহার করুন
-    const apiKey = 'YOUR_API_KEY';
-    
-    // ডিফল্ট লোকেশন (ঢাকা)
-    let city = 'Dhaka';
-    
-    // ওয়েদার ডাটা ফেচ করার ফাংশন
-    function fetchWeather() {
-        fetch(https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=bn)
-            .then(response => response.json())
-            .then(data => {
-                updateWeather(data);
-            })
-            .catch(error => {
-                console.error('ওয়েদার ডাটা লোড করতে সমস্যা:', error);
-                document.getElementById('weather-city').textContent = 'ডাটা লোড করতে ব্যর্থ';
-            });
-    }
-    
-    // ওয়েদার ডাটা আপডেট করার ফাংশন
-    function updateWeather(data) {
-        document.getElementById('weather-city').textContent = data.name + ', ' + data.sys.country;
-        document.getElementById('weather-temp').textContent = Math.round(data.main.temp) + '°C';
-        document.getElementById('weather-desc').textContent = data.weather[0].description;
-        document.getElementById('weather-humidity').textContent = data.main.humidity + '%';
-        document.getElementById('weather-wind').textContent = (data.wind.speed * 3.6).toFixed(1) + ' km/h';
-        document.getElementById('weather-pressure').textContent = data.main.pressure + ' hPa';
-        
-        // ওয়েদার আইকন সেট করা
-        const iconCode = data.weather[0].icon;
-        document.getElementById('weather-icon').src = https://openweathermap.org/img/wn/${iconCode}@2x.png;
-    }
-    
-    // পেজ লোড হলে ওয়েদার ডাটা ফেচ করা
-    window.onload = function() {
-        // জিওলোকেশন ব্যবহার করে ব্যবহারকারীর বর্তমান অবস্থান পাওয়ার চেষ্টা করা
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    fetch(https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=bn)
-                        .then(response => response.json())
-                        .then(data => {
-                            city = data.name;
-                            updateWeather(data);
-                        });
-                },
-                (error) => {
-                    console.error('জিওলোকেশন এরর:', error);
-                    fetchWeather(); // ডিফল্ট লোকেশন ব্যবহার করা
-                }
-            );
-        } else {
-            fetchWeather(); // জিওলোকেশন সাপোর্ট না করলে ডিফল্ট লোকেশন ব্যবহার করা
-        }
-    };
+  const apiKey = 'c20d8bda864e4faab3d171924250807'; // ← এখানে তোমার API Key বসাও
+
+  function updateWeather(data) {
+    document.getElementById('weather-location').nextElementSibling.textContent = ${data.location.name}, ${data.location.country};
+    document.getElementById('weather-temp').textContent = ${data.current.temp_c}°C;
+    document.getElementById('weather-feels').textContent = ${data.current.feelslike_c}°C;
+    document.getElementById('weather-condition').textContent = data.current.condition.text;
+    document.getElementById('weather-icon').src = "https:" + data.current.condition.icon;
+    document.getElementById('weather-humidity').textContent = data.current.humidity + "%";
+    document.getElementById('weather-wind').textContent = data.current.wind_kph + " কিমি/ঘণ্টা";
+    document.getElementById('weather-rain').textContent = data.current.precip_mm + " mm";
+    document.getElementById('weather-uv').textContent = data.current.uv;
+    document.getElementById('weather-time').textContent = data.current.last_updated;
+  }
+
+  function fetchWeather(lat, lon) {
+    const url = https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}&lang=bn;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => updateWeather(data))
+      .catch(error => {
+        console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
+        document.getElementById('weather-location').nextElementSibling.textContent = "লোড ব্যর্থ!";
+      });
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        fetchWeather(lat, lon);
+      },
+      (error) => {
+        console.warn("লোকেশন পাওয়া যায়নি, ডিফল্ট 'Dhaka' ব্যবহার করা হচ্ছে");
+        fetchWeather("Dhaka", "Bangladesh");
+      }
+    );
+  } else {
+    fetchWeather("Dhaka", "Bangladesh");
+  }
 </script>
- 
 </body>
 </html>
