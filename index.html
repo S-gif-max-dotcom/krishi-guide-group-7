@@ -4,8 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>এগ্রি ১৭তম আবর্তন</title>
+<style>
+  #officerContactForm input, #officerContactForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  #officerContactForm button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #officerContactForm button:hover {
+    background-color: #0056b3;
+  }
+</style>
    <style>
-    body {
+    body 
+    {
       font-family: 'SolaimanLipi', Arial, sans-serif;
       line-height: 1.6;
       background: #f9f9f9;
@@ -175,6 +196,9 @@
   <a href="#cardamom">🌿 এলাচ</a>
   <a href="#cinnamon">🌳 দারুচিনি</a>
   <a href="#crop-calendar">📅 চাষ ক্যালেন্ডার</a>
+  <a href="#contact-officer" style="display:block; padding:10px; color:white; background:#17a2b8; text-decoration:none; border-radius:5px;">
+  👨‍💼 কৃষি অফিসারের সাথে যোগাযোগ
+</a>
 </div>
 
 <!-- শিরোনাম -->
@@ -653,6 +677,201 @@
 
   // কিছু ব্রাউজারে getVoices() async, তাই voice লোডে wait করতে হয়
   window.speechSynthesis.onvoiceschanged = () => {};
+</script>
+<!-- Crop Talk Chatbot Start (Improved Position & Size) -->
+<style>
+  #chatbot-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 9999;
+    font-family: 'SolaimanLipi', Arial, sans-serif;
+  }
+
+  #toggle-chatbot {
+    background-color: #1abc9c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+  }
+
+  #toggle-chatbot:hover {
+    background-color: #16a085;
+  }
+
+  #chatbot {
+    display: none;
+    background: white;
+    border: 1px solid #ccc;
+    width: 280px;
+    height: 360px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #chatbox {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background-color: #f7f9fc;
+  }
+
+  #chat-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .user-msg {
+    background-color: #1abc9c;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 12px 12px 0 12px;
+    margin: 4px 0;
+    max-width: 80%;
+    align-self: flex-end;
+    word-wrap: break-word;
+  }
+
+  .bot-msg {
+    background-color: #eee;
+    color: #333;
+    padding: 6px 10px;
+    border-radius: 12px 12px 12px 0;
+    margin: 4px 0;
+    max-width: 80%;
+    align-self: flex-start;
+    word-wrap: break-word;
+  }
+</style>
+
+<div id="chatbot-container">
+  <button id="toggle-chatbot">🤖 Crop Chat</button>
+  <div id="chatbot">
+    <div id="chatbox"></div>
+    <input id="chat-input" type="text" placeholder="Type your question and press Enter..." autocomplete="off" />
+  </div>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('toggle-chatbot');
+  const chatbot = document.getElementById('chatbot');
+  const chatbox = document.getElementById('chatbox');
+  const chatInput = document.getElementById('chat-input');
+
+  toggleBtn.addEventListener('click', () => {
+    if (chatbot.style.display === 'none' || chatbot.style.display === '') {
+      chatbot.style.display = 'flex';
+      chatInput.focus();
+    } else {
+      chatbot.style.display = 'none';
+    }
+  });
+
+  const knowledgeBase = {
+    "cucumber": "Cucumber grows well in sandy loam soil and warm weather.",
+    "beans": "Beans are nitrogen-fixing crops suitable for most soil types.",
+    "gourd": "Gourd needs regular watering and support for vine growth.",
+    "cardamom": "Cardamom thrives in shaded, moist areas like hill tracts.",
+    "cumin": "Cumin prefers dry, sunny conditions and sandy soils.",
+    "cauliflower": "Cauliflower grows best in cool weather with fertile soil.",
+    "cinnamon": "Cinnamon is a tropical spice crop harvested from bark."
+  };
+
+  function appendMessage(msg, sender) {
+    const div = document.createElement('div');
+    div.classList.add(sender === 'user' ? 'user-msg' : 'bot-msg');
+    div.textContent = msg;
+    chatbox.appendChild(div);
+    chatbox.scrollTop = chatbox.scrollHeight;
+  }
+
+  function botReply(userMsg) {
+    userMsg = userMsg.toLowerCase();
+    for (const key in knowledgeBase) {
+      if (userMsg.includes(key)) {
+        return knowledgeBase[key];
+      }
+    }
+    return "Sorry, I couldn't find the answer. Please rephrase your question or ask about a specific crop.";
+  }
+
+  chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && chatInput.value.trim() !== '') {
+      const userText = chatInput.value.trim();
+      appendMessage(userText, 'user');
+      const reply = botReply(userText);
+      setTimeout(() => {
+        appendMessage(reply, 'bot');
+      }, 500);
+      chatInput.value = '';
+    }
+  });
+</script>
+<!-- Crop Talk Chatbot End -->
+ <!-- অফিসার ও কৃষকের যোগাযোগ -->
+<section id="contact-officer" style="margin:30px; max-width:600px;">
+  <h2>👨‍🌾 কৃষকের সমস্যা সরাসরি কৃষি অফিসারের কাছে পাঠান</h2>
+  <form id="officerContactForm">
+    <label>👤 আপনার নাম:</label><br>
+    <input type="text" id="farmerName" required><br><br>
+
+    <label>📍 ঠিকানা/জেলা:</label><br>
+    <input type="text" id="location" required><br><br>
+
+    <label>🌾 ফসল ও সমস্যা:</label><br>
+    <textarea id="problem" rows="4" required></textarea><br><br>
+
+    <label>📞 মোবাইল নম্বর:</label><br>
+    <input type="tel" id="phone" pattern="[0-9]{11}" required><br><br>
+
+    <button type="submit">📤 পাঠান</button>
+  </form>
+  <p id="confirmationMsg" style="color:green;"></p>
+</section>
+<script>
+  document.getElementById('officerContactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('farmerName').value;
+    const location = document.getElementById('location').value;
+    const problem = document.getElementById('problem').value;
+    const phone = document.getElementById('phone').value;
+
+    const data = {
+      name: name,
+      location: location,
+      problem: problem,
+      phone: phone,
+      date: new Date().toLocaleString()
+    };
+
+    // localStorage-এ জমা
+    let stored = JSON.parse(localStorage.getItem('officerQueries')) || [];
+    stored.push(data);
+    localStorage.setItem('officerQueries', JSON.stringify(stored));
+
+    // কনফার্মেশন
+    document.getElementById('confirmationMsg').innerText = "✅ আপনার সমস্যাটি জমা হয়েছে। অফিসার শীঘ্রই যোগাযোগ করবেন!";
+    
+    // Reset form
+    this.reset();
+  });
 </script>
 </body>
 </html>
