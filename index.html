@@ -4,6 +4,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>এগ্রি ১৭তম আবর্তন</title>
+  <!-- AI চ্যাটবট সিস্টেম -->
+<style>
+  #chatbot-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 9999;
+    font-family: 'SolaimanLipi', Arial, sans-serif;
+  }
+
+  #toggle-chatbot {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+  }
+
+  #toggle-chatbot:hover {
+    background-color: #1b5e20;
+  }
+
+  #chatbot {
+    display: none;
+    background: white;
+    border: 1px solid #81c784;
+    width: 300px;
+    height: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    flex-direction: column;
+  }
+
+  #chat-header {
+    background-color: #81c784;
+    color: white;
+    padding: 8px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  #chatbox {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 14px;
+    border: 1px solid #e8f5e9;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 8px 0;
+    background-color: #f1f8e9;
+  }
+
+  #chat-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #a5d6a7;
+    font-family: 'SolaimanLipi';
+  }
+
+  .user-msg {
+    background-color: #2e7d32;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 12px 12px 0 12px;
+    margin: 6px 0;
+    max-width: 80%;
+    align-self: flex-end;
+    word-wrap: break-word;
+  }
+
+  .bot-msg {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 8px 12px;
+    border-radius: 12px 12px 12px 0;
+    margin: 6px 0;
+    max-width: 80%;
+    align-self: flex-start;
+    word-wrap: break-word;
+    border: 1px solid #c8e6c9;
+  }
+
+  #send-btn {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+</style>
 <style>body {
   font-family: 'SolaimanLipi', sans-serif;
   background-color: #f5f5f5;
@@ -1740,6 +1840,7 @@ th {
     </tbody>
   </table>
 </section>
+
 <!-- Crop Talk Chatbot Start (Improved Position & Size) -->
 <style>
   #chatbot-container {
@@ -1823,69 +1924,135 @@ th {
 </style>
 
 <div id="chatbot-container">
-  <button id="toggle-chatbot">🤖 Crop Chat</button>
+  <button id="toggle-chatbot">🌾 কৃষি সহায়িকা</button>
   <div id="chatbot">
+    <div id="chat-header">কৃষি বিশেষজ্ঞ চ্যাটবট</div>
     <div id="chatbox"></div>
-    <input id="chat-input" type="text" placeholder="Type your question and press Enter..." autocomplete="off" />
+    <div style="display: flex;">
+      <input id="chat-input" type="text" placeholder="আপনার প্রশ্ন লিখুন..." autocomplete="off" />
+      <button id="send-btn">➤</button>
+    </div>
   </div>
 </div>
 
 <script>
-  const toggleBtn = document.getElementById('toggle-chatbot');
-  const chatbot = document.getElementById('chatbot');
-  const chatbox = document.getElementById('chatbox');
-  const chatInput = document.getElementById('chat-input');
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('toggle-chatbot');
+    const chatbot = document.getElementById('chatbot');
+    const chatbox = document.getElementById('chatbox');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
 
-  toggleBtn.addEventListener('click', () => {
-    if (chatbot.style.display === 'none' || chatbot.style.display === '') {
-      chatbot.style.display = 'flex';
-      chatInput.focus();
-    } else {
-      chatbot.style.display = 'none';
+    // প্রথম বার্তা
+    appendMessage("আসসালামু আলাইকুম! আমি কৃষি সহায়িকা চ্যাটবট। ফসল চাষ, রোগবালাই বা অন্য কোনো কৃষি সমস্যা সম্পর্কে জানতে চাইলে আমাকে জিজ্ঞাসা করুন।", 'bot');
+
+    // টগল বাটনে ক্লিক ইভেন্ট
+    toggleBtn.addEventListener('click', () => {
+        if (chatbot.style.display === 'none') {
+            chatbot.style.display = 'flex';
+            chatInput.focus();
+        } else {
+            chatbot.style.display = 'none';
+        }
+    });
+
+    // কৃষি সম্পর্কিত জ্ঞানভান্ডার
+    const knowledgeBase = {
+        "শসা": {
+            "মাটি": "শসা চাষের জন্য দোআঁশ বা বেলে দোআঁশ মাটি সবচেয়ে ভালো। মাটির pH ৬-৭ এর মধ্যে রাখুন।",
+            "সার": "হেক্টরপ্রতি জৈব সার ২-৩ টন, ইউরিয়া ২০-২৫ কেজি, টিএসপি ১৫-২০ কেজি, এমওপি ১৫-২০ কেজি প্রয়োগ করুন।",
+            "রোগ": "শসার সাধারণ রোগ: ডাউনি মিলডিউ (Ridomil Gold – ২.৫ গ্রাম/লিটার), পাউডারি মিলডিউ (Score – ১ মিলি/লিটার)",
+            "সেচ": "৭-১০ দিন পরপর হালকা সেচ দিন। ফুল ও ফল আসার সময় নিয়মিত সেচ দেবেন।",
+            "সময়": "খরিফ-১: মার্চ-এপ্রিল, খরিফ-২: জুলাই-আগস্ট, রবি মৌসুম: নভেম্বর-ডিসেম্বর"
+        },
+        "ধান": {
+            "জাত": "ব্রি ধান২৮, ব্রি ধান২৯, ব্রি ধান৫০ (লবণসহিষ্ণু), ব্রি ধান৮৯ (খরা সহিষ্ণু)",
+            "সার": "হেক্টরপ্রতি ইউরিয়া ২২০-২৫০ কেজি, টিএসপি ১১০-১২০ কেজি, এমওপি ৭০-৮০ কেজি, জিপসাম ৬০-৭০ কেজি",
+            "রোগ": "ধান主要病害: ব্লাস্ট (Tricyclazole), ব্যাকটেরিয়াল লিফ ব্লাইট (স্ট্রেপ্টোমাইসিন)"
+        },
+        "গম": {
+            "জাত": "বারি গম২৫, বারি গম৩০, বারি গম৩৩ (উচ্চ ফলনশীল)",
+            "সার": "হেক্টরপ্রতি ইউরিয়া ২২০-২৫০ কেজি, টিএসপি ১৫০-১৬০ কেজি, এমওপি ১০০-১১০ কেজি, জিপসাম ১২০ কেজি"
+        }
+    };
+
+    // মেসেজ দেখানোর ফাংশন
+    function appendMessage(msg, sender) {
+        const div = document.createElement('div');
+        div.classList.add(sender === 'user' ? 'user-msg' : 'bot-msg');
+        div.textContent = msg;
+        chatbox.appendChild(div);
+        chatbox.scrollTop = chatbox.scrollHeight;
     }
-  });
 
-  const knowledgeBase = {
-    "cucumber": "Cucumber grows well in sandy loam soil and warm weather.",
-    "beans": "Beans are nitrogen-fixing crops suitable for most soil types.",
-    "gourd": "Gourd needs regular watering and support for vine growth.",
-    "cardamom": "Cardamom thrives in shaded, moist areas like hill tracts.",
-    "cumin": "Cumin prefers dry, sunny conditions and sandy soils.",
-    "cauliflower": "Cauliflower grows best in cool weather with fertile soil.",
-    "cinnamon": "Cinnamon is a tropical spice crop harvested from bark."
-  };
-
-  function appendMessage(msg, sender) {
-    const div = document.createElement('div');
-    div.classList.add(sender === 'user' ? 'user-msg' : 'bot-msg');
-    div.textContent = msg;
-    chatbox.appendChild(div);
-    chatbox.scrollTop = chatbox.scrollHeight;
-  }
-
-  function botReply(userMsg) {
-    userMsg = userMsg.toLowerCase();
-    for (const key in knowledgeBase) {
-      if (userMsg.includes(key)) {
-        return knowledgeBase[key];
-      }
+    // বটের উত্তর তৈরি
+    function botReply(userMsg) {
+        userMsg = userMsg.toLowerCase();
+        
+        // সাধারণ অভিবাদন
+        if (userMsg.includes("সালাম") || userMsg.includes("হ্যালো") || userMsg.includes("হাই")) {
+            return "ওয়ালাইকুম আসসালাম! আমি কৃষি সহায়িকা চ্যাটবট। আপনি কী জানতে চান?";
+        }
+        
+        // ধন্যবাদ
+        if (userMsg.includes("ধন্যবাদ") || userMsg.includes("থ্যাংক")) {
+            return "আপনাকেও ধন্যবাদ! কোনো প্রশ্ন থাকলে আবার জানাবেন।";
+        }
+        
+        // ফসল সম্পর্কিত প্রশ্ন
+        for (const crop in knowledgeBase) {
+            if (userMsg.includes(crop.toLowerCase())) {
+                if (userMsg.includes("মাটি")) {
+                    return knowledgeBase[crop]["মাটি"];
+                }
+                else if (userMsg.includes("সার")) {
+                    return knowledgeBase[crop]["সার"];
+                }
+                else if (userMsg.includes("রোগ")) {
+                    return knowledgeBase[crop]["রোগ"];
+                }
+                else if (userMsg.includes("সেচ")) {
+                    return knowledgeBase[crop]["সার"];
+                }
+                else if (userMsg.includes("সময়")) {
+                    return knowledgeBase[crop]["সময়"];
+                }
+                else {
+                    return `${crop} সম্পর্কিত তথ্য:\nমাটি: ${knowledgeBase[crop]["মাটি"]}\nসার: ${knowledgeBase[crop]["সার"]}\nরোগ: ${knowledgeBase[crop]["রোগ"]}`;
+                }
+            }
+        }
+        
+        return "দুঃখিত, আমি এই প্রশ্নের উত্তর দিতে পারছি না। অনুগ্রহ করে শসা, ধান বা গম সম্পর্কে নির্দিষ্ট প্রশ্ন করুন।";
     }
-    return "Sorry, I couldn't find the answer. Please rephrase your question or ask about a specific crop.";
-  }
 
-  chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && chatInput.value.trim() !== '') {
-      const userText = chatInput.value.trim();
-      appendMessage(userText, 'user');
-      const reply = botReply(userText);
-      setTimeout(() => {
-        appendMessage(reply, 'bot');
-      }, 500);
-      chatInput.value = '';
+    // মেসেজ পাঠানোর ফাংশন
+    function sendMessage() {
+        if (chatInput.value.trim() !== '') {
+            const userText = chatInput.value.trim();
+            appendMessage(userText, 'user');
+            
+            setTimeout(() => {
+                const reply = botReply(userText);
+                appendMessage(reply, 'bot');
+            }, 500);
+            
+            chatInput.value = '';
+        }
     }
-  });
+
+    // ইনপুট ফিল্ডে এন্টার প্রেস ইভেন্ট
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // সেন্ড বাটনে ক্লিক ইভেন্ট
+    sendBtn.addEventListener('click', sendMessage);
+});
 </script>
-<!-- Crop Talk Chatbot End -->
+
  <!-- অফিসার ও কৃষকের যোগাযোগ -->
 <section id="contact-officer" style="margin:30px; max-width:600px;">
   <h2>👨‍🌾 কৃষকের সমস্যা সরাসরি কৃষি অফিসারের কাছে পাঠান</h2>
